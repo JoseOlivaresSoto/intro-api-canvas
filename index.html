@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplos de API Canvas</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <!-- Canvas donde se dibujarán los elementos -->
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <!-- Área de texto para editar el código en tiempo real -->
+    <textarea id="code" rows="10" cols="50">
+        // Ejemplo 1: Dibujar un rectángulo
+        ctx.fillStyle = "red";
+        ctx.fillRect(10, 10, 100, 100);
+
+        // Ejemplo 2: Dibujar un círculo
+        ctx.beginPath();
+        ctx.arc(200, 100, 50, 0, 2 * Math.PI);
+        ctx.fillStyle = "green";
+        ctx.fill();
+
+        // Ejemplo 3: Dibujar una línea
+        ctx.beginPath();
+        ctx.moveTo(300, 200);
+        ctx.lineTo(400, 300);
+        ctx.strokeStyle = "blue";
+        ctx.lineWidth = 5;
+        ctx.stroke();
+
+        // Ejemplo 4: Dibujar un triángulo
+        ctx.beginPath();
+        ctx.moveTo(150, 250);
+        ctx.lineTo(250, 250);
+        ctx.lineTo(200, 350);
+        ctx.closePath();
+        ctx.fillStyle = "orange";
+        ctx.fill();
+    </textarea>
+    
+    <!-- Script JavaScript -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var canvas = document.getElementById("canvas");
+            var ctx = canvas.getContext("2d");
+
+            // Función para dibujar en el canvas según el código en el área de texto
+            function draw() {
+                // Limpiar el canvas
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                // Evaluar el código en el área de texto
+                var code = document.getElementById("code").value;
+                eval(code); // ¡Ten en cuenta que eval es potencialmente peligroso si se usa con código no confiable!
+            }
+
+            // Llamar a la función draw() inicialmente
+            draw();
+
+            // Agregar un evento para detectar cambios en el área de texto y volver a dibujar
+            document.getElementById("code").addEventListener("input", draw);
+        });
+    </script>
+</body>
+</html>
